@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suindufer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body> 
+
+    <form id="formulario">
+        <input type="text" id="nombre" placeholder="Nombre"><hr>
+        <input type="number" id="stock" placeholder="Stock"><hr>
+        <input type="text" id="proveedor" placeholder="Proveedor"><hr>
+        <input type="number" id="costo" placeholder="Costo"><hr>
+        <button type="button" onclick="crearAccesorio()">Agregar accesorio fontaneria</button>
+        <button type="button" onclick="obtenerFontaneria()">Ver herramientas</button><hr>
+
+    </form>
+
+    <div class="resultado" id="resultado"></div>
+
+
+    <script>
+        //funcion para obtener herramientas
+        async function obtenerFontaneria() {
+            try{
+                let respuesta =await fetch('http://localhost:3000/fontaneria');
+                let datos =await respuesta.json();
+                datos.forEach(f => {
+                    html += 
+                    `<li class="html">
+                    <strong>ID:</strong> ${f.id} <hr>
+                    <strong>Nombre Herramienta:</strong> ${f.nombre} <hr>
+                    <strong>Stock Herramienta:</strong> ${f.stock} <hr>
+                    <strong>Nombre Proveedor:</strong> ${f.proveedor} <hr>
+                    <strong>Costo Producto:</strong> ${f.costo} <hr>
+                    <button onclick="eliminarHerramienta(${f.id})">Eliminar</button><hr>
+                    <button onclick="actualizarHerramienta(${f.id})">Actualizar</button><hr>
+                 </li>`;
+                });
+                html += '</ul>';
+
+                //Insertamos el HTML en el DOM
+                document.getElementById('resultado').innerHTML=html;
+            }catch(error){
+                console.error('Error',error);
+            }
+    }
+
+    
+        //funcion para crear fontaneria
+        async function crearAccesorio() {
+    try {
+        // Obtener valores del formulario
+        const nombre = document.getElementById('nombre').value;
+        const stock = parseInt(document.getElementById('stock').value);
+        const proveedor = document.getElementById('proveedor').value;
+        const costo = parseFloat(document.getElementById('costo').value);
+
+        // Realizar la petición POST (Aquí debes colocar la lógica)
+        let respuesta =await fetch('http://localhost:3000/herramientas',{
+        method: 'POST',
+        headers:{'content-Type':'application/json'},
+        body: JSON.stringify({nombre,stock,proveedor,costo})//convertir el objeto en json
+        });
+        //convertir la respuesta a JSON
+        let datos=await respuesta.json();
+        //si la respuesta es exitosa
+        alert('Herramienta creada correctamente');
+        //Recargar la lista de herramientas
+        obtenerFontaneria();
+        //Reiniciar el formulario
+        document.getElementById('formulario').reset();
+
+    } catch (error) {
+        console.error('Error', error);
+    }
+}
+
+    </script>
+</body>
+</html>

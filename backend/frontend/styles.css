@@ -1,0 +1,105 @@
+html,body{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background: grey(255, 0, 0, 0.247);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+#inicio{
+    background: rgb(85, 134, 85);
+    width: 30rem;
+    padding: 30rem;
+    text-align: center;
+}
+
+.herra-btn{
+    
+        background-color: #4CAF50; /* Color de fondo verde */
+        color: white; /* Color del texto en blanco */
+        padding: 10px 20px; /* Espaciado interno */
+        font-size: 16px; /* Tamaño de la fuente */
+        border: none; /* Quita el borde */
+        border-radius: 5px; /* Bordes redondeados */
+        cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+        display: flex;
+        transition: background-color 0.3s, transform 0.2s; /* Efecto de transición */
+}
+
+.font-btn{
+    
+    background-color: #4CAF50; /* Color de fondo verde */
+    color: white; /* Color del texto en blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de la fuente */
+    border: none; /* Quita el borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    display: flex;
+    transition: background-color 0.3s, transform 0.2s; /* Efecto de transición */
+}
+
+.auto-btn{
+    
+    background-color: #4CAF50; /* Color de fondo verde */
+    color: white; /* Color del texto en blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de la fuente */
+    border: none; /* Quita el borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    display: flex;
+    transition: background-color 0.3s, transform 0.2s; /* Efecto de transición */
+}
+
+.gen-btn{
+    
+    background-color: #4CAF50; /* Color de fondo verde */
+    color: white; /* Color del texto en blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de la fuente */
+    border: none; /* Quita el borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.3s, transform 0.2s; /* Efecto de transición */
+    display: flex;
+}
+
+/*Estilo toda la informacion de la herramienta*/
+.html{
+    
+    
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centra horizontalmente */
+        justify-content: center; /* Centra verticalmente */
+        text-align: center;
+        width: 50%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+     
+}
+
+#formularioHerra{
+    
+        display: flex;
+        flex-direction: column; /* Organiza los elementos en columna */
+        align-items: center; /* Centra los elementos dentro del form */
+        justify-content: center; /* Centra verticalmente */
+        text-align: center; /* Centra el texto */
+        width: 50%; /* Ajusta el ancho del formulario */
+        margin: 0 auto; /* Centra horizontalmente */
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    
+}
+

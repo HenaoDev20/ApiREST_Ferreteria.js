@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suindufer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body> 
+    
+
+    <form id="formulario">
+        <input type="text" id="nombre" placeholder="Nombre">
+        <input type="number" id="stock" placeholder="Stock">
+        <input type="text" id="proveedor" placeholder="Proveedor">
+        <input type="number" id="costo" placeholder="Costo">
+        <button type="button" onclick="crearHerramienta()">Agregar</button>
+        <button type="button" onclick="obtenerHerramientas()">Ver herramientas</button><hr>
+        <button onclick="window.location.href='index.html'" >Volver</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <script>
+     function obtenerHerramientas() {
+    fetch('http://localhost:3000/herramientas')//Aca sucede una peticion get para obtener los valores de herramientas
+        .then(function(response) { //AL ser exitosa la peticion get,convierte la respuesta en datos json
+            return response.json();
+        })
+        .then(function(data) { //en esta parte el parametro data me obtiene los resultados de la consulta get
+            var html = '<h3>Lista de Herramientas</h3><ul>';// Aca se mostraria la lista de herramientas obtenidas
+            data.forEach(function(h) {
+                html += 
+                    `<li class="html">${h.id} - ${h.nombre} - ${h.stock} - ${h.proveedor} - ${h.costo}
+                        <button onclick="eliminarHerramienta(${h.id})">Eliminar</button><hr>
+                        <button onclick="actualizarHerramienta(${h.id})">Actualizar</button>
+                    </li>`;
+            });
+            html += '</ul>';
+
+            document.getElementById('resultado').innerHTML = html;
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+        });
+}  
+
+
+
+
+
+
+        
+    </script>
+</body>
+</html>

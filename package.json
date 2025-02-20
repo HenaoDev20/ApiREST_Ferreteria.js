@@ -1,0 +1,26 @@
+{
+  "name": "ferreteria_virtual",
+  "version": "1.0.0",
+  "description": "Sistema de backend para la ferretería virtual",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon servidor.js"
+  },
+  "keywords": [
+    "ferretería",
+    "backend",
+    "express",
+    "nodejs"
+  ],
+  "author": "Brian Henao",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

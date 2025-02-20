@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suindufer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body> 
+    
+
+    <form id="formularioHerra">
+        <input type="text" id="nombre" placeholder="Nombre"><hr>
+        <input type="number" id="stock" placeholder="Stock"><hr>
+        <input type="text" id="proveedor" placeholder="Proveedor"><hr>
+        <input type="number" id="costo" placeholder="Costo"><hr>
+        <button type="button" onclick="crearHerramienta()">Agregar</button><hr>
+        <button type="button" onclick="obtenerHerramientas()">Ver herramientas</button><hr>
+
+        
+    </form>
+
+    <button onclick="window.location.href='index.html'" >Volver</button><hr>
+
+    <div class="resultado" id="resultado"></div>
+
+    <script>
+        //funcion para obtener herramientas
+        async function obtenerHerramientas() {
+    try {
+        let respuesta = await fetch('http://localhost:3000/herramientas'); // Petición GET
+        let datos = await respuesta.json(); // Convertimos la respuesta a JSON
+        // Generamos el HTML con los datos obtenidos
+        let html = '<h3>Lista de Herramientas</h3><ul>';
+        datos.forEach(h => {
+            html += 
+                `<li class="html">
+                    <strong>ID:</strong> ${h.id} <hr>
+                    <strong>Nombre Herramienta:</strong> ${h.nombre} <hr>
+                    <strong>Stock Herramienta:</strong> ${h.stock} <hr>
+                    <strong>Nombre Proveedor:</strong> ${h.proveedor} <hr>
+                    <strong>Costo Producto:</strong> ${h.costo} <hr>
+                    <button onclick="eliminarHerramienta(${h.id})">Eliminar</button><hr>
+                    <button onclick="actualizarHerramienta(${h.id})">Actualizar</button><hr>
+                 </li>`;
+        });
+        html += '</ul>';
+
+        // Insertamos el HTML en el DOM
+        document.getElementById('resultado').innerHTML = html;
+    } catch (error) {
+        console.error('Error:', error); // Capturamos errores
+    }
+}
+
+         //funcion para crear herramientas
+         async function crearHerramienta() {
+    try {
+        // Obtener valores del formulario
+        const nombre = document.getElementById('nombre').value;
+        const stock = parseInt(document.getElementById('stock').value) || 0;
+        const proveedor = document.getElementById('proveedor').value;
+        const costo = parseFloat(document.getElementById('costo').value) || 0;
+
+        // Realizar la petición POST
+        let respuesta = await fetch('http://localhost:3000/herramientas', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombre, stock, proveedor, costo }) // Convertir el objeto a JSON
+        });
+
+        // Convertir la respuesta a JSON
+        let datos = await respuesta.json();
+
+        // Si la respuesta fue exitosa
+        alert('Herramienta creada correctamente');
+
+        // Recargar la lista de herramientas
+        obtenerHerramientas();
+
+        // Reiniciar el formulario
+        document.getElementById('formulario').reset();
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+//Funcion para eliminar herramienta
+async function eliminarHerramienta(id) {
+    try {
+        // Confirmación antes de eliminar
+        if (!confirm("¿Seguro que deseas eliminar esta herramienta?")) return;
+
+        // Petición DELETE con await
+        let respuesta = await fetch(`http://localhost:3000/herramientas/${id}`, {
+            method: 'DELETE'
+        });
+
+        // Verificamos si la eliminación fue exitosa
+        if (!respuesta.ok) {
+            throw new Error('No se pudo eliminar la herramienta');
+        }
+
+        alert('Herramienta eliminada');
+
+        // Recargar la lista de herramientas actualizada
+        obtenerHerramientas();
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+    
+
+async function actualizarHerramienta(id) {
+    try {
+        // Pedimos los nuevos valores al usuario
+        const nuevoNombre = prompt('Nuevo nombre:', 'Nombre actualizado');
+        if (nuevoNombre === null) return; // Si cancela, no hacer nada
+
+        const nuevoStock = parseInt(prompt('Nuevo stock:', '10')) || 0;
+        const nuevoProveedor = prompt('Nuevo proveedor:', 'Proveedor actualizado');
+        if (nuevoProveedor === null) return;
+
+        const nuevoCosto = parseFloat(prompt('Nuevo costo:', '100')) || 0;
+
+        // Petición PUT para actualizar la herramienta
+        let respuesta = await fetch(`http://localhost:3000/herramientas/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                nombre: nuevoNombre, 
+                stock: nuevoStock, 
+                proveedor: nuevoProveedor, 
+                costo: nuevoCosto 
+            })
+        });
+
+        // Verificar si la petición fue exitosa
+        if (!respuesta.ok) {
+            throw new Error('No se pudo actualizar la herramienta');
+        }
+
+        // Convertir la respuesta a JSON
+        let datos = await respuesta.json();
+
+        alert('Herramienta actualizada correctamente');
+
+        // Recargar la lista de herramientas
+        obtenerHerramientas();
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+    </script>
+</body>
+</html>
